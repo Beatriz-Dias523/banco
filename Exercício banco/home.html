@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      var saldo = 1000;
+      var nome = prompt("Qual seu nome?");
+      alert("Olá, " + nome + " é um prazer ter você por aqui");
+
+      function verificar_senha() {
+        var senha = parseInt(prompt("Digite sua senha:"));
+        if (senha === 3589) {
+          return true;
+        } else {
+          alert("Senha incorreta tente novamente!");
+          return false;
+        }
+      }
+      inicio();
+
+      function inicio() {
+        if (verificar_senha()) {
+          var escolha = parseInt(
+            prompt(
+              nome +
+                " , selelcione uma opção \n1.) Saldo \n2.) Extrato \n3.) Saque \n4.) Depósito \n5.) Trasferencia \n6.) Sair ."
+            )
+          );
+
+          if (escolha === 1) {
+            ver_saldo();
+          } else if (escolha === 2) {
+            ver_extrato();
+          } else if (escolha === 3) {
+            fazer_saque();
+          } else if (escolha === 4) {
+            fazer_deposito();
+          } else if (escolha === 5) {
+            fazer_transferencia();
+          } else if (escolha === 6) {
+            sair();
+          } else {
+            erro();
+          }
+        } else {
+          inicio();
+        }
+      }
+      function erro() {
+        alert("Escolha uma opção válida");
+        inicio();
+      }
+      function sair() {
+        var confirma = confirm("Você deseja sair?");
+        if (confirma) {
+          alert(nome + " Foi um prazer ter você aqui ! ");
+          window.close();
+        } else {
+          inicio();
+        }
+      }
+      function ver_saldo() {
+        alert("Seu saldo atual é de: " + saldo);
+        inicio();
+      }
+
+      function ver_extrato() {
+        if (verificar_senha()) {
+          alert(
+            "Farmacia: - R$ 30,00 \nMercado: - R$ 40,00 \nSalão: - R$ 300,00 \nNetflix: - R$ 55,00"
+          );
+        } else {
+          ver_extrato();
+        }
+        inicio();
+      }
+
+      function fazer_saque() {
+        if (verificar_senha()) {
+          var saque = parseInt(prompt("qual valor deseja sacar?"));
+
+          if (isNaN(saque) || saque === "") {
+            alert("Por favor, digite um número!");
+            fazer_saque();
+          } else {
+            if (saldo >= saque && saque >= 0) {
+              saldo -= saque;
+              ver_saldo();
+            } else {
+              alert("Operação não autozidada!");
+            }
+          }
+        } else {
+          fazer_saque();
+        }
+        inicio();
+      }
+
+      function fazer_deposito() {
+        if (verificar_senha()) {
+          var deposito = parseInt(prompt("qual valor deseja depositar?"));
+
+          if (isNaN(deposito) || deposito === "") {
+            alert("Por favor, digite um número!");
+            fazer_deposito();
+          } else {
+            saldo += deposito;
+            var_saldo();
+          }
+        } else {
+          fazer_deposito();
+        }
+        inicio();
+      }
+
+      function fazer_transferencia() {
+        if (verificar_senha()) {
+          var transferencia = parseInt(prompt("qual valor deseja trasnferir?"));
+          var conta = parseInt(prompt("Digite o número da conta!"));
+          if (isNaN(transferencia) || transferencia === "") {
+            alert("Operação não autozidada");
+            fazer_transferencia();
+          } else {
+            if (isNaN(conta) || conta === "") {
+              fazer_transferencia();
+            } else {
+              if (transferencia <= saldo && transferencia >= 0) {
+                saldo -= transferencia;
+                ver_saldo();
+              } else {
+                alert("Operação não autozidada!");
+                fazer_transferencia();
+              }
+            }
+          }
+        }
+      }
+    </script>
+  </body>
+</html>
